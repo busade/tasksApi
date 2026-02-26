@@ -1,0 +1,91 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.sample
+*.json
+google_credentials.json
+cert.pem
+key.pem
+*.pem
+*.crt
+*.key
+
+# Logs and test artifacts
+*.log
+*.db
+*.sqlite3
+*.sqlite3-journal
+.coverage
+.coverage.*
+.cache
+htmlcov/
+.pytest_cache/
+test_cases.py
+test_case1.py
+case_test.py
+
+# Alembic migration files (only ignore versions)
+alembic/versions/
+
+# IDE/editor/project configs
+.vscode/
+.spyderproject
+.spyproject
+.ropeproject
+
+# OS/system
+.DS_Store
+Thumbs.db
+
+# Tools & type checkers
+.mypy_cache/
+.pytype/
+.pyre/
+dmypy.json
+.dmypy.json
+GEMINI.md
+
+# Packaging & build
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+MANIFEST
+develop-eggs/
+downloads/
+sdist/
+wheels/
+share/python-wheels/
+
+# Documentation
+docs/_build/
+site/
+
+# Node-based tooling (if any)
+node_modules/
+
+# Miscellaneous (unused files from your previous version)
+.blog_env/
+.trunk/
+
+# JetBrains IDEs
+.idea/
+
+# Others you added manually that are likely irrelevant now
+api/core/dependencies/mailjet.py
+tests/v1/waitlist/waitlist_test.py
+result.json
