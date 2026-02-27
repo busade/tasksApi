@@ -1,12 +1,19 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session,declarative_base
+from dotenv import load_dotenv
+load_dotenv()
 import os
 
 def get_database_url():
-    return os.getenv("DATABASE_URL")
+    return os.getenv("DATABASE_URL","sqlite:///./test.db")
 
 
-engine = create_engine(get_database_url())
+engine = create_engine(
+    get_database_url(),
+    pool_size=10,            # number of persistent connections
+    max_overflow=20,         # extra temporary connections
+    pool_pre_ping=True 
+                       )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

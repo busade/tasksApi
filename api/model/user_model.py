@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Integer, String, Boolean,relationship, DateTime
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from api.config.config import Base
 
 class User(Base):
@@ -10,17 +12,30 @@ class User(Base):
     google_id = Column(String, unique=True, index = True, nullable = True)
     is_google_user = Column(Boolean, default = False)
     is_verified = Column(Boolean, default = False)
-    verification_token_id = Column(String, ForeignKey("verification_tokens.id", ondelete="SET NULL"), nullable=True)
 
-    verification_token = relationship("VerificationToken", back_populates="user")
-    create_tasks = relationship("Task", back_populates="owner") 
+    create_tasks = relationship("Tasks", back_populates="owner") 
 
 
-class VerificationToken(BaseTableModel):
+class VerificationToken(Base):
     __tablename__ = "verification_tokens"
-
-    value = Column(Integer, nullable=False)
+    id=Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    otp = Column(Integer, nullable=False)
     expires_at = Column(DateTime(timezone=True), nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
     # Relationships
-    user = relationship("User", back_populates="verification_token", uselist=False)
+    user = relationship("User")
+
+
+class PasswordReset(Base):
+    __tablename__ = "password_resets"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    otp = Column(String, nullable=False, index=True)
+    expires_at = Column(DateTime(timezone=True), nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    is_used = Column(Boolean, default=False)
+
+    # Relationships
+    user = relationship("User")
